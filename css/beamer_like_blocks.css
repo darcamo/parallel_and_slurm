@@ -1,0 +1,135 @@
+/* Here I put some css code that I have created myself for things similar to
+   block/alert block in beamer */
+
+:root {
+    /* Define some variables for the colors */
+    --angry-dark-color: #C43C35;
+    --angry-light-color: #FFD7D5;
+    --moody-dark-color: #F89406;
+    --moody-light-color: #FFECD1;
+    --happy-dark-color: #46a546;
+    --happy-light-color: #C0E0C0;
+
+    /* Defined some variables for paddings, margins, etc. of the boxes */
+    --box-radius: 3px;
+    --box-vertical-margin: 15px; /* Default margin for top and bottom of box class */
+    --box-vertical-padding: 0.5em;
+    --box-horizontal-padding: 1em;
+    --label-top-shift: 0.7em;
+    --label-font-size: 16px;
+    --label-top-bottom-padding: 3px; /* top and bottom padding in a box label */
+}
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+
+
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+/* Add 'box' class as well as any of ['angry'|'moody'|'happy'] class to a div to
+   make it a block similar to Beamer blocks. Inside this div add a span with the
+   'label' class for the block name and after that add a paragraph for the
+   actual text. */
+div.box/* , code */ {
+    border-radius: var(--box-radius);
+    padding: var(--box-vertical-padding) var(--box-horizontal-padding) var(--box-vertical-padding) var(--box-horizontal-padding);
+    /* border: 1px solid #ccc; */
+    margin-top: var(--box-vertical-margin);  /* Set as the amount the label is shifted up */
+    margin-bottom: var(--box-vertical-margin);
+    /* font-size: 0.9em; */
+    text-align: left;
+    color: black;
+}
+
+.labeled {
+    position: relative;
+}
+
+div.box.labeled {
+    /* margin-top: calc(var(--box-vertical-margin) + var(--label-top-shift) / 2);          /\*Add some top margin to account for the label (which has absolute positioning *\/ */
+    padding-top: calc(5px + var(--label-font-size) + 2 * var(--label-top-bottom-padding) - var(--label-top-shift) / 2); /* Extra padding to leave space for the label */
+}
+
+/* The box content must be either a ul or a p */
+div.box p, div.box ul {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+div.box ul {
+    /* Inside the a box, the regular left padding of lists is undesirable */
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+
+div.box pre {
+    margin: 0;
+    width: 100%;
+}
+
+.labeled .label {
+    position: absolute;
+    display: inline-block;
+    border-radius: var(--box-radius);
+    padding: var(--label-top-bottom-padding) 0.5em var(--label-top-bottom-padding) 0.5em;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: var(--label-font-size);
+}
+
+.labeled .label, .labeled>p:first-child {
+    top: calc(-1 * var(--label-top-shift));
+}
+
+/* With markdown a paragraph is added inside te label span, but the font should not be the size of paragraph, but of .label instead */
+.label p {
+    font-size: var(--label-font-size);
+}
+
+.angry.box {
+    background-color: var(--angry-light-color);
+    /* border-color: var(--angry-dark-color); */
+}
+.happy.box {
+    background-color: var(--happy-light-color);
+    /* border-color: var(--happy-dark-color); */
+}
+.moody.box {
+    background-color: var(--moody-light-color);
+    /* border-color: var(--happy-dark-color); */
+}
+.moody .label {
+    background-color: var(--moody-dark-color);
+}
+.happy .label {
+    background-color: var(--happy-dark-color);
+}
+.angry .label {
+    background-color: var(--angry-dark-color);
+}
+
+/* The alert class does not exist alone */
+.moody.alert {
+    color: var(--moody-dark-color);
+}
+.happy.alert {
+    color: var(--happy-dark-color);
+}
+.angry.alert {
+    color: var(--angry-dark-color);
+}
+
+/* Add the zeropadded class to the same div that has the box class -> Useful to add a pre block inside a labeled box */
+.zeropadded {
+    padding: 0 !important;
+}
+.zeropadded.labeled {
+    margin-top: calc(var(--box-vertical-margin) + 1.3em) !important;
+}
+.box.zeropadded .label {
+    top: calc(-1 * (var(--box-vertical-margin) + var(--label-top-shift) - 4px));
+    left: var(--box-horizontal-padding);
+}
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/

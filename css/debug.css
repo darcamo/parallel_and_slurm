@@ -1,0 +1,31 @@
+/* Taken from view-source:https://story.xaprb.com/css/apron.css */
+
+/* Add one of the debug classes as a slide class in order to debug the slide
+   elements.
+
+ It will add an outline to each element.
+
+Remember that an outline is draw outside the border. */
+
+
+.remark-slide-content.debug * {
+  outline: 1px solid gold;
+}
+.remark-slide-content.debug-white * {
+  outline: 1px solid white;
+}
+.remark-slide-content.debug-black * {
+  outline: 1px solid black;
+}
+.remark-slide-content.debug-grid {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVR4AWPAC97/9x0eCsAEPgwAVLshdpENIxcAAAAASUVORK5CYII= ) repeat top left;
+}
+.remark-slide-content.debug-grid-16 {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMklEQVR4AWOgCLz/b0epAa6UGuBOqQHOQHLUgFEDnAbcBZ4UGwDOkiCnkIhdgNgNxAYAiYlD+8sEuo8AAAAASUVORK5CYII= ) repeat top left;
+}
+.remark-slide-content.debug-grid-8-solid {
+  background: white url(data:image/gif;base64,R0lGODdhCAAIAPEAAADw/wDx/////wAAACwAAAAACAAIAAACDZQvgaeb/lxbAIKA8y0AOw== ) repeat top left;
+}
+.remark-slide-content.debug-grid-16-solid {
+  background: white url(data:image/gif;base64,R0lGODdhEAAQAPEAAADw/wDx/xXy/////ywAAAAAEAAQAAACIZyPKckYDQFsb6ZqD85jZ2+BkwiRFKehhqQCQgDHcgwEBQA7 ) repeat top left;
+}

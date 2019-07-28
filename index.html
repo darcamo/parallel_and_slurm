@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>The Presentation Title</title>
+        <meta charset="utf-8">
+        <style>
+         .smallcodefont .remark-code {
+             font-size: 80%;
+         }
+         .verysmallcodefont .remark-code {
+             font-size: 50%;
+         }
+         .monospace .remark-code-line {
+             font-family: monospace;
+         }
+        </style>
+
+        <link href="css/theme.css" rel="stylesheet"/>
+        <link href="css/main.css" rel="stylesheet"/>
+        <link href="css/titlepage.css" rel="stylesheet"/>
+        <link href="css/beamer_like_blocks.css" rel="stylesheet"/>
+        <link href="css/table.css" rel="stylesheet"/>
+        <link href="css/debug.css" rel="stylesheet"/>
+        <link href="css/slide_transitions.css" rel="stylesheet"/>
+        <link href="css/logo.css" rel="stylesheet"/>
+        <link href="css/animate.css" rel="stylesheet"/> <!-- https://daneden.github.io/animate.css/ -->
+        <link href="css/print.css" rel="stylesheet"/>
+        <link href="css/blockquote.css" rel="stylesheet"/>
+        <link href="css/kbd.css" rel="stylesheet"/>
+
+        <!-- Experimental CSS that I'am still deciding on keeping in the template -->
+        <!-- https://github.com/ttskch/remarkbase -->
+        <link href="css/experimental.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <!-- <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script> -->
+        <script src="js/remark-latest.min.js"></script>
+
+        <!-- TODO: Add bibtex parser -->
+        <!-- TODO: procure por "remark template" no github que tem alguns legais -->
+        <!-- TOOD: procure por remark pull-left -> veja em https://github.com/gnab/remark/issues/409 -->
+        <!-- TODO: Bom exemplo de apresentação -> http://gnab.github.io/js-workshop/#1  -->
+        <!-- TODO: testar outras fonts -> Ex: Heuristica webfont -->
+        <!-- https://www.fontsquirrel.com/ -->
+
+        <!-- TODO: veja classes extras em https://github.com/ttskch/remarkbase -->
+        <!-- TODO: Adicionar código javascript para gerar table of contents -->
+
+        <!-- TODO: Currently the toc macro is wrong if there is any slide without an h1 first child. Idealy, the toc should be for some kind of section and not for the h1 headers -->
+
+        <script src="js/helper_funcs.js"></script>
+
+        <script>
+         // Macro to generate the colored box -> It receives 3 arguments, the classes
+         // (everything except box separated by spaces), the box label, the box content.
+         function generate_box_code(classes, label, content) {
+             var box_code = "<div class=\"box CLASSES\">LABELCODE<p>CONTENT</p></div>";
+
+             if (label === undefined) {
+                 box_code = box_code.replace("LABELCODE", "");
+             } else {
+                 classes = "labeled " + classes;
+                 box_code = box_code.replace("LABELCODE", "<span class=\"label\">" + label + "</span>");
+             }
+             box_code = box_code.replace("CLASSES", classes);
+             box_code = box_code.replace("CONTENT", remark.convert(content));
+             return box_code;
+         }
+
+         function generate_captioned_float(img_url, caption_text) {
+             var float_tag = remark.convert(`![Mizaru](${img_url})`);
+             caption_text = remark.convert(caption_text);
+             return `<figure>
+  ${float_tag}
+  <figcaption>${caption_text}</figcaption>
+</figure>`;
+         }
+
+         // See https://github.com/gnab/remark/issues/72#issuecomment-62225566
+         remark.macros['box'] = function () {
+             return generate_box_code(arguments[0], arguments[1], this);
+         };
+
+         /* Note that this macro will just add a span with an id="qrcode". A
+            function was added to window.onload to look for that ID and if one is
+            found then a QR code will added to the span. */
+         remark.macros['qrcode'] = function () {
+             return '<span id="qrcode" title="URL">URL</span>'.replace(/URL/g, this);
+         };
+
+         remark.macros['captionedfigure'] = function() {
+             var caption_text = arguments[0];
+             var image = this;
+             return generate_captioned_float(image, caption_text);
+         }
+
+         function replaceTOC(firstIdx, secondIdx) {
+             let nameToId = name => name.toLowerCase().replace(/ /g, "-");
+
+             let toc = document.getElementById("TOC");
+             let slideTitlesAndNumbers = getAllSlideTitlesAndNumbers(firstIdx, secondIdx);
+             slideTitles = slideTitlesAndNumbers.map(titleAndNumber => {
+                 [title, number] = titleAndNumber;
+                 return "<li><a href='#URL'>X</a></li>".replace("X", title).replace("URL", number+1);
+             }).join("\n");
+             let html = "<ol>TITLES</ol>".replace("TITLES", slideTitles);
+
+             toc.innerHTML = html;
+         }
+
+         remark.macros['toc'] = function() {
+             let start = arguments[0];
+             let end = arguments[1];
+             window.addEventListener("load", function() { replaceTOC(start, end); });
+             return "<div id='TOC' class='toc'>TOC</div>"
+         }
+        </script>
+
+        <script>
+         var slideshow = remark.create({
+             sourceUrl: 'presentation.md',
+             // Navigation options
+             navigation: {
+                 // Enable or disable navigating using scroll
+                 // Default: true
+                 // Alternatives: false
+                 scroll: true,
+
+                 // Enable or disable navigation using touch
+                 // Default: true
+                 // Alternatives: false
+                 touch: true,
+
+                 // Enable or disable navigation using click
+                 // Default: false
+                 // Alternatives: true
+                 click: false
+             },
+             //properties: {
+             //    class: "center, middle"
+             //},
+
+             // Set the slideshow display ratio
+             // Default: '4:3'
+             // Alternatives: '16:9', ...
+             ratio: '16:9',
+
+             // Customize slide number label, either using a format string..
+             slideNumberFormat: 'Slide %current% of %total%',
+             // .. or by using a format function
+             /* slideNumberFormat: function (current, total) {
+              *     return 'Slide ' + current + ' of ' + total;
+              * }, */
+
+             //highlightStyle: 'solarized-light',
+             //highlightStyle: 'tomorrow',
+             highlightStyle: "tomorrow-night-eighties",
+             highlightLines: true,
+             highlightSpans: true,
+             //highlightStyle: 'default',
+
+             // Enable or disable counting of incremental slides in the slide counting
+             countIncrementalSlides: false
+         });
+        </script>
+
+        <!-- This needs to come before you include MathJax -->
+        <!-- <script src="js/configure_mathjax.js"></script> -->
+
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script> -->
+        <!-- If you want to run your presentation offline, you need to download the MathJax -->
+        <!-- libraries, then uncomment the line below and comment out the one above.-->
+        <!-- <script "text/javascript" src="js/MathJax/MathJax.js?config=TeX-AMS_HTML,local/local"></script> -->
+
+        <script type="text/javascript" src="js/qrcode.js"></script>
+        <script>
+         // Find an element with the #qrcode id and replace it with the a QR code
+         function prepare_qr_code() {
+             var element = document.getElementById("qrcode");
+             if (element !== null) {
+                 var url = element.textContent;
+                 element.textContent = "";
+                 var qrcode = new QRCode("qrcode", {
+                     text: url,
+                     width: 128,
+                     height: 128,
+                     colorDark : "black",
+                     colorLight : "white",
+                     correctLevel : QRCode.CorrectLevel.H
+                 });
+             }
+         }
+
+         // Find an element with the .location class and replace it with a google maps URL of the place
+         function prepare_location() {
+             var l = document.getElementsByClassName("location");
+             if (l.length > 0) {
+                 var text = l[0].textContent;
+                 var url = "https://maps.google.com/?q=" + text.replace(" ", "+");
+                 var html_code = `<a href="${url}">${text}</a>`;
+                 l[0].innerHTML = html_code;
+             }
+         }
+
+         function addClickEventActionEveryCodeBlock() {
+             let code_blocks = document.getElementsByTagName("code");
+             for(var idx=0; idx < code_blocks.length; idx++) {
+                 let c = code_blocks[idx];
+                 //console.log(c);
+                 c.addEventListener("click", function() {copyCodeOnClick(c);});
+             }
+         }
+
+         // Add any javascript function that changes the presentation here, such as changing the QR code, etc.
+         window.addEventListener("load", function() {
+             prepare_qr_code();
+             prepare_location();
+             addClickEventActionEveryCodeBlock();
+         });
+
+         // You can use the showSlide event to call some javascript function
+         // Ex: Add a "name" property to each slide where a javascriot function
+         // should be called, then in the callback for the showSlide event you can
+         // check for the name and execute some javascript code if it is the
+         // desired name
+         // You can also store the index of the previous slide if you need that
+         // for some transition
+         slideshow.on('showSlide', function (slide) {
+             let slideName = slide.properties["name"]
+             //console.log(slideName);
+             //console.log(slide.getSlideIndex()); // Slide is the slide being navigated to
+
+             if (slideName === "more-animations-2") {
+                 console.log("Yahooo more-animations-2");
+             }
+
+             if (slideName === "more-animations-3") {
+                 console.log("We arrived in the slide with animation");
+             }
+         });
+
+         // Other events you can use are: hideSlide, beforeShowSlide,
+         // afterShowSlide, beforeHideSlide, and afterHideSlide
+        </script>
+
+
+        <script>
+         document.addEventListener('keydown', (event) => {
+             if (getCurrentSlideName() === "more-animations-3") {
+                 updateBlock(event);
+             }
+         });
+        </script>
+    </body>
+</html>

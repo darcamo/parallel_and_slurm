@@ -1,0 +1,113 @@
+
+/* Taken from http://fontello.com/ */
+/* Fontenello allow us to get only the font icons we want. I got the four icons used in the .contactblock class in title.css */
+@font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.eot?70240279');
+    src: url('../font/fontello.eot?70240279#iefix') format('embedded-opentype'),
+         url('../font/fontello.woff2?70240279') format('woff2'),
+         url('../font/fontello.woff?70240279') format('woff'),
+         url('../font/fontello.ttf?70240279') format('truetype'),
+         url('../font/fontello.svg?70240279#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.titleblock {
+    color: white;
+    background-color: rgb(0,128,184, 0.8);
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+/* When using markdown the title and subtitle will be inside p tags, which we don't want */
+.titleblock p {
+    margin: 0;
+}
+
+.authorsblock {
+    background-color: rgb(238, 238, 238, 0.8);
+    padding: 1px;
+}
+
+.authorsblock .presenter {
+    color: red;
+}
+
+/* Some special classes */
+.authorsblock img {
+    width: 200px;
+    display: block;
+    margin: 10px auto 10px;
+}
+
+.authorsblock p {
+    font-size: 120%;
+}
+
+
+/* Classe for the contact block in the end of the presentation */
+.contactblock {
+    width: 100%;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    padding: 0.4em 1em 0.4em 1em;
+    background-color: var(--frame-tittle-background-color);
+    /* margin-left: -45px; */
+}
+
+.contactblock p {
+    margin: 0;
+}
+
+.contactblock .presenter::before, .contactblock .home::before, .contactblock .webpage::before, .contactblock .location::before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+
+}
+
+.contactblock .presenter::before {
+    content: '\f199';
+    /* color: initial; */
+}
+
+.contactblock .home::before {
+    content: '\e801';
+}
+
+.contactblock .webpage::before {
+    content: '\e800';
+}
+
+.contactblock .location::before {
+    content: '\f277';
+}

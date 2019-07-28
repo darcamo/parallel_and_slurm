@@ -1,0 +1,10 @@
+@media only screen {
+
+    /* Thanks to http://www.partage-it.com/animez-vos-presentations-remark-js/  (in French) */
+    .remark-fading { z-index: 9; }
+
+    /* The two lines below will animate every slide transition with a fade effect */
+    .remark-slide-container {transition: opacity 0.5s ease-out;opacity: 0;}
+    .remark-visible {transition: opacity 0.5s ease-out;opacity: 1;}
+
+}

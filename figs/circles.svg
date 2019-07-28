@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" id="svg8" version="1.1" viewBox="0 0 100 100">
+  <style>
+    circle {
+        fill-opacity: 0;
+        stroke:rgb(0,128,184, 0.9);
+        stroke-width:0.2;
+    }
+  </style>
+
+  <circle r="0" cy="55%" cx="50%">
+    <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="0" />
+    <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="0"/>
+  </circle>
+
+  <circle r="0" cy="55%" cx="50%">
+    <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="0.5" />
+    <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="0.5"/>
+  </circle>
+
+
+  <circle r="0" cy="55%" cx="50%">
+    <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="1.25" />
+    <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="1.25"/>
+  </circle>
+
+<circle r="0" cy="55%" cx="50%">
+  <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="2.5" />
+  <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="2.5"/>
+</circle>
+
+<!-- <circle r="0" cy="55%" cx="50%"> -->
+<!--   <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="4" /> -->
+<!--   <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="4"/> -->
+<!-- </circle> -->
+
+<!-- <circle r="0" cy="55%" cx="50%"> -->
+<!--   <animate attributeName="r" from="0" to="60%" dur="6s" repeatCount="indefinite" begin="5.5" /> -->
+<!--   <animate attributeName="stroke-opacity" from="1" to="0" dur="6s" repeatCount="indefinite" begin="5.5"/> -->
+<!-- </circle> -->
+
+</svg>

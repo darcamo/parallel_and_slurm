@@ -1,0 +1,14 @@
+/* Add an image to the top right of every slide */
+/* Add the hide-logo class to remove it from a specific slide */
+.remark-slide-content:not(.hide-logo):not(.inverse):not(.img-caption)::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right:20px;
+    width: 140px;
+    height: 50px;
+    /* background-color: red; */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../figs/logo.svg)
+}

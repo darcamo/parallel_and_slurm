@@ -1,0 +1,240 @@
+
+/* Classes defined here to add to a slide:
+   - inverse, middle, center
+   - img-caption -> add to a slide with just a picture and some text
+   - hide-slide-number
+   - hide-logo
+   - overlay-blend -> has an effect only when there is a background image and a background color with "0 < opacity < 1"
+   - dontanimate -> use in step slides if you have animated a slide entrance with animate.css
+
+   Classes you can add to spans and divs
+   - .moody.labeled.box
+   - .moody.alert
+   - footnote
+   - cite
+   - strike
+   - extra-top-bottom-margin
+   - auto-left-right-margin
+   - columns
+     - column -> add a column inside the columns
+     - Add 'w-10, w-20, ...' class to the same element with the column class for a width proportion
+     - Add a 'align-top', '\'align-middle\' or 'align-middle' class to the column
+*/
+
+.toc {
+    display: table-cell;
+    margin-top: auto;
+    margin-bottom: auto;
+    /* height: 100%; */
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
+}
+
+.toc>ol {
+    column-count: 2;
+    /* margin-top: 60px; */
+}
+
+p, ul, ol {
+    font-size: 24px;
+}
+
+.remark-code {
+    font-size: 22px;
+}
+
+
+/* This class is created by remark and we actually appending some content to it */
+.remark-slide-content {
+    /* padding: 1em 2.5em 1em 2.5em; */
+    padding: 20px 60px 0 60px;
+    /* By using relative position we are able to use absolute position in its chindren */
+    /* position: relative; */
+}
+
+
+.footnote {
+    position:absolute;
+    bottom: 1rem;
+    left: 5%;
+    font-size: 1rem;
+}
+
+.inverse {
+    background: var(--inverse-background-color);
+    color: var(--inverse-text-color);
+}
+
+.inverse h1, .inverse h2 {
+    color: var(--inverse-text-color);
+}
+
+.inverse.middle p {
+    font-size: 1.8rem;
+    line-height: 3.5rem;
+}
+
+.middle h1, .middle h2 {
+    font-family: cursive;
+    text-shadow: 0 0 20px #aaa;
+}
+
+.auto-left-right-margin {
+    margin-left:auto;
+    margin-right:auto;
+    display: table;
+}
+
+/* Add the overlay-blend class to a slide that has both a background color and a
+   background image to combine the color and the image */
+.overlay-blend {
+    background-blend-mode: overlay;
+}
+
+/* Add this class to a box to add some margin to top and bottom */
+.extra-top-bottom-margin {
+    margin-top: 4em !important;
+    margin-bottom: 4em !important;
+}
+
+/* TODO: Use a javascript bibtex parser instead */
+/* Ex: https://github.com/pcooksey/bibtex-js */
+.cite { color:#33AA99;font-style: italic; }
+
+.strike {color:salmon;text-decoration:line-through}
+
+
+/*Set color scheme for links.*/
+a {text-decoration: none; color: #666666;text-align:center; width: 24%}
+/*Setting link properties is particular, do not change order below*/
+a:visited {color:#666666}
+a:hover {color:#33AA99}
+a:active, a#active {color:#FF9700;}
+
+
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+/* Code for two columns */
+
+/* Create a div with the 'columns' class and inside it put divs with the
+   'column' class. You can set the style of the column divs to something such as
+   style="flex-basis: 50%" to control the width.
+*/
+/* See https://stackoverflow.com/questions/36342921/specifing-width-of-a-flexbox-flex-item-width-or-basis */
+.columns {
+    display: flex;
+    justify-content: space-around;
+
+    /* We add some top and bottom margin to the columns environment to
+       compensate the margin we removed from the first and last elements of each
+       column. Since the columns div is not floated its margin is allowed to
+       collapse with elements before and after it. */
+    /* We also add a negative left margin because we will add a left margin to each
+       column to make some column separation. */
+    margin: 20px -20px 20px;
+}
+
+.column {
+    margin-left: 20px;
+}
+
+/* Because margin of floated elements don't collapse, the space between a
+   paragraph before the columns and the largest column will be too much. To
+   avoid this, we remove the top margin of the first element inside each
+   column as well as the bottom margin of the last element. */
+.column>*:first-child {
+    margin-top: 0;
+}
+
+.column>*:last-child {
+    margin-bottom: 0;
+}
+
+.column.w-10 { flex-basis: 10%; }
+.column.w-15 { flex-basis: 15%; }
+.column.w-20 { flex-basis: 20%; }
+.column.w-25 { flex-basis: 25%; }
+.column.w-30 { flex-basis: 30%; }
+.column.w-35 { flex-basis: 35%; }
+.column.w-40 { flex-basis: 40%; }
+.column.w-45 { flex-basis: 45%; }
+.column.w-50 { flex-basis: 50%; }
+.column.w-55 { flex-basis: 55%; }
+.column.w-60 { flex-basis: 60%; }
+.column.w-65 { flex-basis: 65%; }
+.column.w-70 { flex-basis: 70%; }
+.column.w-75 { flex-basis: 75%; }
+.column.w-80 { flex-basis: 80%; }
+.column.w-85 { flex-basis: 85%; }
+.column.w-90 { flex-basis: 90%; }
+.column.w-95 { flex-basis: 95%; }
+.column.w-auto { flex-basis: auto; }
+
+.column.align-top { align-self: flex-start !important;}
+.column.align-middle { align-self: center !important;}
+.column.align-bottom { align-self: flex-end !important; }
+
+.columns.align-top > .column { align-self: flex-start; }
+.columns.align-middle > .column { align-self: center; }
+.columns.align-bottom > .column { align-self: flex-end; }
+
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+/* img-caption code taken from https://story.xaprb.com/slides/adirondack/#12*/
+/* Add the img-caption class to a slide */
+.remark-slide-content.img-caption {
+    text-align: center;
+    padding-top: 544.8px;
+}
+.remark-slide-content.img-caption > p:first-of-type {
+    padding: 0px;
+    margin: 0px;
+}
+.remark-slide-content.img-caption > p:first-of-type > img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+
+.hide-slide-number .remark-slide-number {
+    visibility: hidden;
+}
+
+#qrcode img {
+    display: block;
+    margin: 0 auto;
+}
+
+.dontanimate {
+    animation-duration: 0s !important;
+}
+
+
+/* Show */
+pre, p>code {
+    position: relative;
+}
+
+pre>code:hover, p>code {
+    cursor: copy;
+}
+pre>code:hover:after{
+    position:absolute;
+    top: calc(-1em - 15px);
+    right:20px;
+    bottom:0;
+
+    background-color: rgb(230, 230, 230);
+    height: 1em;
+
+    padding: 10px 15px 10px 15px;
+    content: "Clique para copiar";
+    border-radius: 5px;
+    font-size: 75%;
+    /* box-shadow: 3px 3px gray; */
+}

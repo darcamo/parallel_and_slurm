@@ -1,0 +1,61 @@
+
+/* See this article for font choice: https://www.canva.com/learn/font-design/ */
+
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+:root {
+    --frame-tittle-color: rgb(0,128,184, 1);
+    --frame-tittle-background-color: rgb(238, 238, 238, 1);
+    --frame-tittle-box-shadow: 0px 5px 5px #ccc;
+
+    --inverse-text-color: white;
+    --inverse-frame-tittle-background-color: rgb(51, 51, 51, 0.9);
+    --inverse-background-color: #272822;
+    --inverse-frame-tittle-box-shadow: 0px 5px 3px rgb(0,0,0,0.3);
+}
+
+
+body {
+    font-family: 'Georgia';
+    letter-spacing:0.025em;
+}
+h1, h2, h3 {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-weight: normal;
+}
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', "Mono"; }
+
+
+
+.remark-slide-content:not(.middle) h1:first-child, .remark-slide-content:not(.middle) h1:first-child+h2 {
+    color: var(--frame-tittle-color);
+    background-color: var(--frame-tittle-background-color);
+    margin-left: -60px;
+    margin-right: -60px;
+    padding-left: 3rem;
+    box-shadow: var(--frame-tittle-box-shadow);
+}
+
+.inverse.remark-slide-content:not(.middle) h1:first-child, .inverse.remark-slide-content:not(.middle) h1:first-child+h2 {
+    background-color: var(--inverse-frame-tittle-background-color);
+    color: var(--inverse-text-color);
+    box-shadow: var(--inverse-frame-tittle-box-shadow);
+}
+
+.remark-slide-content h1:first-child {
+    position: relative;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    padding-top: 0.6rem;
+    padding-bottom: 0.2rem;
+}
+
+.remark-slide-content h1:first-child+h2 {
+    margin-top: -20px;
+    margin-bottom: -0.5rem; /* Account that h2 was shifted up */
+    padding-bottom: 0.2rem;
+    font-size: 1.5rem;
+    position: relative;
+    top: -0.5rem; /* by moving up a bit we hide h1 box shadow */
+}
