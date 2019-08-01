@@ -213,9 +213,15 @@
 
          // Add any javascript function that changes the presentation here, such as changing the QR code, etc.
          window.addEventListener("load", function() {
-             prepare_qr_code();
-             prepare_location();
-             addClickEventActionEveryCodeBlock();
+             // Even though we are executing code in the "load" event of the
+             // window, directly calling the functions we want might not work
+             // because it needs to be run after other code that also runs in
+             // the load event. Therefore, we use a setTimeout to sleep for 1 second before calling the functions
+             setTimeout(function(){
+                 prepare_qr_code();
+                 prepare_location();
+                 addClickEventActionEveryCodeBlock();
+             }, 1000);
          });
 
          // You can use the showSlide event to call some javascript function
