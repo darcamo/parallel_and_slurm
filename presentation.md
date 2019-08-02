@@ -1151,6 +1151,19 @@ layout: false
 - No prompt do job, excreva `echo $SLURM_` e aperte `TAB` para completar as
   variáveis disponíveis)
 
+---
+# Outras dicas
+
+- Cuidado ao submeter muitos jobs que gravam grandes quantidades de dados em
+  disco
+  - Ainda precisamos pensar a melhor maneira de lidar com esse caso
+  - Talvez uma partição "scratch" em cada nó que usa o disco local?
+
+- Se conectou no cluster via SSH e perdeu a conexão (desconectou da VPN, por
+  exemplo) então não é possível fechar a conexão via Ctrl+D ou exit
+  - Nesse caso use o caractere de escape `~.` no começo de uma linha
+  - Na conexão "travada", aperte ENTER (para garantir que está no começo de uma
+    linha), seguido de `~`, seguido de `.`
 
 ---
 class: middle, center, hide-slide-number, hide-logo
