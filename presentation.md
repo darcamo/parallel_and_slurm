@@ -1195,14 +1195,29 @@ layout: false
 
 - Cuidado ao submeter muitos jobs que gravam grandes quantidades de dados em
   disco
-  - Ainda precisamos pensar a melhor maneira de lidar com esse caso
-  - Talvez uma partição "scratch" em cada nó que usa o disco local?
+  <!-- - Ainda precisamos pensar a melhor maneira de lidar com esse caso -->
+  <!-- - Talvez uma partição "scratch" em cada nó que usa o disco local? -->
+
+--
 
 - Se conectou no cluster via SSH e perdeu a conexão (desconectou da VPN, por
   exemplo) então não é possível fechar a conexão via Ctrl+D ou exit
   - Nesse caso use o caractere de escape `~.` no começo de uma linha
   - Na conexão "travada", aperte ENTER (para garantir que está no começo de uma
     linha), seguido de `~`, seguido de `.`
+
+--
+
+- A opção "--format" permite mudar o que é mostrado
+  - Experimente o comando
+
+    `squeue --format "%.18i %.12j %.8u %.2t %.8M %.4D %.14R %.4C %.7m"`
+
+--
+
+![:box happy, Dica, Nota](Coloque no seu `.bashrc` no cluster a linha abaixo para usar esse formato por padrão
+
+`export SQUEUE_FORMAT=<STRING_DE_FORMAT>`)
 
 ---
 class: middle, center, hide-slide-number, hide-logo
