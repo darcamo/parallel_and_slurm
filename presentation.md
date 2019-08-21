@@ -1117,6 +1117,8 @@ sbatch ... --wrap "./myprog 3 B"
 comando passado para o `--wrap` é preciso escrever `\` antes do `$` para que a
 variável não seja expandida no shell)
 
+--
+
 - O script abaixo usa o gnu parallel e a opção `--wrap` do slurm para submeter
   12 job arrays diferentes, cada um correspondendo 100 jobs
 
@@ -1135,6 +1137,10 @@ parallel sbatch --output $OUTPUTFILENAME --error $ERRORFILENAME --job-name "L{2}
 ```
 ]
 
+--
+
+![:box moody, Nota](É preciso adicionar `\` extras quando escrevemos em um arquivo ao invés de rodar no terminal)
+
 ---
 layout: false
 
@@ -1142,19 +1148,22 @@ layout: false
 
 
 .auto-left-right-margin.extra-top-bottom-margin[
-| Comando     | Opção                      | Descrição                                                             |
-| :--         | :--                        | :--                                                                   |
-| **squeue**  |                            | **Mostra informações dos jobs na fila do slurm**                      |
-|             | -s                         | Mostra os steps de um job                                             |
-|             | -u USER_NAME &nbsp; &nbsp; | Mostra apenas jobs do usuário USER_NAME                               |
-|             | -j JOB_ID                  | Mostra apenas o job especificado (combine som "-s" para ver os steps) |
-| **sinfo**   |                            | **Mostra informações do cluster (nós e partições, etc)**              |
-|             | -T                         | Mostra informações das reservas (se houver alguma)                    |
-| **scancel** |                            | **Usado para cancelar jobs sobre controle do slurm**                  |
-|             | JOB_ID                     | Cancela o job com id JOB_ID                                           |
-|             | -u USER_NAME               | Cancela todos os jobs do usuário USER_NAME                            |
-|             | -n JOB_NAME                | Cancela o job com nome JOB_NAME                                       |
-|             | -t PENDING                 | Cancela apenas os jobs com estado PENDING                             |
+| Comando      | Opção                      | Descrição                                                             |
+| :--          | :--                        | :--                                                                   |
+| **squeue**   |                            | **Mostra informações dos jobs na fila do slurm**                      |
+|              | -s                         | Mostra os steps de um job                                             |
+|              | -u USER_NAME &nbsp; &nbsp; | Mostra apenas jobs do usuário USER_NAME                               |
+|              | -j JOB_ID                  | Mostra apenas o job especificado (combine som "-s" para ver os steps) |
+| **sinfo**    |                            | **Mostra informações do cluster (nós e partições, etc)**              |
+|              | -T                         | Mostra informações das reservas (se houver alguma)                    |
+| **scancel**  |                            | **Usado para cancelar jobs sobre controle do slurm**                  |
+|              | JOB_ID                     | Cancela o job com id JOB_ID                                           |
+|              | -u USER_NAME               | Cancela todos os jobs do usuário USER_NAME                            |
+|              | -n JOB_NAME                | Cancela o job com nome JOB_NAME                                       |
+|              | -t PENDING                 | Cancela apenas os jobs com estado PENDING                             |
+| **scontrol** |                            |                                                                       |
+|              | show job JOBID             | Mostra diversas informações do job                                    |
+|              |                            | **Útil para ver se recursos solicitados estão corretos**              |
 ]
 
 <!-- TODO: scontrol -->
