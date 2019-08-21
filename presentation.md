@@ -39,7 +39,7 @@ template:newpart
 # O que é o GNU Parallel
 
 
-- Ferramenta para executar múltiplos comandos/trabalhos em paralelo em um ou mais computadores. 
+- Ferramenta para executar múltiplos comandos/trabalhos em paralelo em um ou mais computadores.
   - Ele garante que a saída dos comandos seja a mesma que você obteria se
     tivesse executado os comandos sequencialmente
 
@@ -65,10 +65,10 @@ B
 C
 ```
 
-A entrada pode ser um arquivo contento `A B C`
+A entrada pode ser um arquivo contento `A B C` (considere que o arquivo se chama `abc-file`)
 
 ```sh
-parallel -a abs-file echo
+parallel -a abc-file echo
 ```
 
 ![:box moody, Nota](Cada entrada deve estar em uma linha diferente)
@@ -208,11 +208,11 @@ A
 
 ---
 
-- Podemos combinar alguns casos. 
+- Podemos combinar alguns casos.
   - Ex: Usando `{/.}` removemos o path e a extensão.
 
 --
-- Um caso especial é `{#}`, que nos dá o índice do job 
+- Um caso especial é `{#}`, que nos dá o índice do job
 
 ```sh
 $ parallel echo A entrada {} corresponde ao job {#} ::: A B C
@@ -390,7 +390,7 @@ seg jul 29 00:49:36 -03 2019
 
 ## Informação de progresso
 
-- O gnu parallel pode estimar o tempo total para executar todos os jobs 
+- O gnu parallel pode estimar o tempo total para executar todos os jobs
 
 ```sh
 $ parallel --eta sleep ::: 1 3 2 2 1 3 3 2 1
@@ -421,7 +421,7 @@ Seq Host Starttime      Runtime Send Receive Exitval Signal Command
   1   :    1376577364.974 0.008   0    0       1       0      exit 1
   2   :    1376577364.982 0.013   0    0       2       0      exit 2
   3   :    1376577364.990 0.013   0    0       3       0      exit 3
-  4   :    1376577365.003 0.003   0    0       0       0      exit 0 
+  4   :    1376577365.003 0.003   0    0       0       0      exit 0
 ```
 ]
 
@@ -464,7 +464,7 @@ darlan-notebook
 ```
 
 --
-- É possível executar jobs em computadores remotos 
+- É possível executar jobs em computadores remotos
 
 .smallcodefont[
 ```sh
@@ -558,9 +558,9 @@ layout: true
 ```python
 def run_mlp_grid_search(num_ues, balanced, pkt_size):
     """
-    Fit several mlp models using GridSearchCV, keep the best and save classification 
+    Fit several mlp models using GridSearchCV, keep the best and save classification
     report to a json file.
-    
+
     Parameters
     ----------
     num_ues : int
@@ -599,7 +599,7 @@ def run_mlp_grid_search(num_ues, balanced, pkt_size):
 
     # Code that can take from 5 seconds to 30 minutes dependeing on the chosen scenario
     pass
-    
+
 
 if __name__ == '__main__':
     run_mlp_grid_search()
@@ -688,7 +688,7 @@ layout: false
 --
 - Jobs são tipicamente criados com o comando `sbatch`
   - O job é mostrado com seu jobID na saída do comando `squeue`
-  
+
 --
 - Steps são criados com o comando `srun` (dentro de um job submetido com sbatch)
 
@@ -702,7 +702,7 @@ layout: false
 ![:box moody, Nota](Utilize o comando `squeue -s -j JOBID` para ver os steps de um job)
 
 ---
-layout: true 
+layout: true
 # O caso mais simples
 
 - O script abaixo corresponde a um job com que contém um step e esse step roda
@@ -855,7 +855,7 @@ template: newpart
 layout: true
 
 # Casos Típicos
- 
+
 ---
 
 ## Um programa que usa MPI
@@ -960,11 +960,11 @@ echo "Job ended at $(date)"
 #SBATCH --array=1-N
 
 echo "Job started at $(date)"
-srun ./myprog $SLURM_TASK_ARRAY_ID
+srun ./myprog $SLURM_ARRAY_TASK_ID
 echo "Job ended at $(date)"
 ```
 
-- Usamos a variável $SLURM_TASK_ARRAY_ID para distinguir a entrada 
+- Usamos a variável $SLURM_ARRAY_TASK_ID para distinguir a entrada
 
 --
 
@@ -977,7 +977,7 @@ echo "Job ended at $(date)"
 
 - Quando cada job demora pouco tempo (~30 minutos ou menos)
   - É melhor suar um único job com vários steps -> menor overhead no slurm
-    
+
 <!-- <https://stackoverflow.com/questions/57206237/difference-in-slurm-job-array-and-job-step-performance> -->
 
 ```sh
@@ -1030,7 +1030,7 @@ srun ./myprog
 #SBATCH --ncpus-per-task=4
 #SBATCH --array=1-10
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-srun ./myprog $SLURM_TASK_ARRAY_ID
+srun ./myprog $SLURM_ARRAY_TASK_ID
 ```
 
 ---
@@ -1060,9 +1060,9 @@ parallel $PARALLELARGS srun $SRUN_ARGS ./myprog ::: {1..1000}
 - Nesse caso é melhor submeter múltiplos jobs
   - Podemos usar a opção "--wrap" do comando `sbatch` ao invés de criar um
     script de submissão
- 
+
 O script abaixo
- 
+
 ```sh
 #! /bin/bash
 #
@@ -1091,7 +1091,7 @@ parallel sbatch ... --wrap \"./myprog {1} {2}\" ::: {1..3} ::: A B
 ```
 
 --
-equivale a 
+equivale a
 
 ```sh
 sbatch ... --wrap "./myprog 1 A"
@@ -1143,7 +1143,7 @@ layout: false
 | `SLURM_CPUS_PER_TASK`                | Número de CPUs por tarefa         |
 | `SLURM_NTASKS`                       | Número de tarefas do job          |
 | `SLURM_NNODES`                       | Número de nós alocados para o job |
-| `$SLURM_TASK_ARRAY_ID` &nbsp; &nbsp; | ID da task em um job array        |
+| `$SLURM_ARRAY_TASK_ID` &nbsp; &nbsp; | ID da task em um job array        |
 ]
 
 ![:box happy, Dica, Nota](
