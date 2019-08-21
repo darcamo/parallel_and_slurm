@@ -1105,6 +1105,36 @@ sbatch ... --wrap "./myprog 3 B"
 --
 ![:box happy,Dica, Nota](Utiliza a opção --dryrun do gnu parallel para ver se está tudo certo)
 
+
+---
+
+## Combinando a opção `--wrap` com job arrays
+
+- É possível combinar `--wrap` com com job arrays passando algo como
+`--array=0-100` para o sbatch
+
+![:box angry, moody](Ao usar a variável `$SLURM_ARRAY_TASK_ID` como parte do
+comando passado para o `--wrap` é preciso escrever `\` antes do `$` para que a
+variável não seja expandida no shell)
+
+- O script abaixo usa o gnu parallel e a opção `--wrap` do slurm para submeter
+  12 job arrays diferentes, cada um correspondendo 100 jobs
+
+.smallcodefont[
+```bash
+#!/bin/bash
+
+PYTHON=/opt/anaconda3/bin/python
+SCRIPT=$HOME/some_folder/some_python_script.py
+
+OUTPUTFILENAME=/home/users/darlan/Naive_ML_Report/slurm_output/out_all_algs_%A_%a.txt
+ERRORFILENAME=/home/users/darlan/Naive_ML_Report/slurm_output/error_all_algs_%A_%a.txt
+
+parallel sbatch --output $OUTPUTFILENAME --error $ERRORFILENAME --job-name "L{2}_{1}" -N 1 -n 1 -c 1 --array=0-100 --wrap \
+\"$PYTHON $SCRIPT --arg1 {1} --arg2 {2} --arg3 \\\$SLURM_ARRAY_TASK_ID\" ::: 8000 12000 ::: {400..900..100}
+```
+]
+
 ---
 layout: false
 
